@@ -19,8 +19,8 @@ class tweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Settings for table view
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 200
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 200
         
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets : [Tweet]) in
             self.tweets = tweets
@@ -59,6 +59,7 @@ class tweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         return cell;
     }
+
 
     /*
     // MARK: - Navigation
