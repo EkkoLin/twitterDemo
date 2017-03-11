@@ -19,8 +19,8 @@ class tweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Settings for table view
         tableView.dataSource = self
         tableView.delegate = self
-//        tableView.rowHeight = UITableViewAutomaticDimension
-//        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 200
         
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets : [Tweet]) in
             self.tweets = tweets
@@ -61,14 +61,20 @@ class tweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)
+        let tweet = tweets![indexPath!.row]
+        
+        let navController = segue.destination as! UINavigationController
+        let vc = navController.topViewController as! DetailViewController
+        vc.tweet = tweet
     }
-    */
-
+    
+    
 }

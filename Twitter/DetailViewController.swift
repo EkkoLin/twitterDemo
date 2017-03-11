@@ -9,24 +9,26 @@
 import UIKit
 
 class DetailViewController: UIViewController {
+    
+    var tweet : Tweet!
+    
     @IBOutlet weak var toProfileButton: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var time: UILabel!
-    @IBOutlet weak var retweetLabel: UILabel!
-    @IBOutlet weak var favoriteLabel: UILabel!
+    @IBOutlet weak var retweetCountLabel: UILabel!
+    @IBOutlet weak var favoriteCountLabel: UILabel!
+    @IBOutlet weak var atLabel: UILabel!
 
-    var tweet : Tweet?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.nameLabel.text = tweet?.name
-        self.overviewLabel.text = tweet?.text
-        self.time.text = tweet?.time
-        self.retweetLabel.text = "\(tweet?.retweetCount)"
-        self.favoriteLabel.text = "\(tweet?.favoriteCount)"
+        self.nameLabel.text = tweet.name
+        self.overviewLabel.text = tweet.text!
+        self.time.text = tweet.time
+        self.retweetCountLabel.text = String(tweet.retweetCount)
+        self.favoriteCountLabel.text = String(tweet.favoriteCount)
         
         if let imageUrl = tweet?.userImage
         {
@@ -37,7 +39,6 @@ class DetailViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func onReplyButton(_ sender: UIButton) {
@@ -45,20 +46,25 @@ class DetailViewController: UIViewController {
     
     
     @IBAction func onRetweetButton(_ sender: UIButton) {
+        
     }
     
     
     @IBAction func onFavoriteButton(_ sender: UIButton) {
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        let navController = segue.destination as! UINavigationController
+        let vc = navController.topViewController as! profileViewController
+        vc.user = tweet.userDict
     }
-    */
+    
 
 }

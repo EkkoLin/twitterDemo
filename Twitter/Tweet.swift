@@ -21,7 +21,7 @@ class Tweet: NSObject {
     
     init(dictionary: NSDictionary) {
         text = dictionary["text"] as? String
-        userDict = (dictionary["user"] as? NSDictionary)!
+        userDict = (dictionary["user"] as! NSDictionary)
         
         name = userDict["name"] as? String
         let profileUrlString = userDict["profile_image_url_https"] as? String
