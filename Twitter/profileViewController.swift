@@ -19,6 +19,8 @@ class profileViewController: UIViewController {
     @IBOutlet weak var followerCountLabel: UILabel!
     
     var user: NSDictionary!
+    var tweet: NSDictionary!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +65,11 @@ class profileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    @IBAction func onFriendButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 
     
     // MARK: - Navigation
@@ -71,10 +78,14 @@ class profileViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let navController = segue.destination as! UINavigationController
-        let vc = navController.topViewController as! tweetingViewController
-        vc.user = user
+        if let sender = sender as? UIBarButtonItem {
+            if sender.image! == UIImage(named: "edit-icon")! {
+                let navVC = segue.destination as? UINavigationController
+                let composeVC = navVC?.viewControllers.first as! tweetingViewController
+            
+                composeVC.user = User.currentUser
+            }
+        }
     }
     
-
 }

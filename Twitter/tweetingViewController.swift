@@ -15,22 +15,15 @@ class tweetingViewController: UIViewController{
     @IBOutlet weak var atLabel: UILabel!
     @IBOutlet weak var textLabel: UITextField!
     
-    var user: NSDictionary!
+    var user: User!
+    var message: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Display setup
-        let imageURL = user["profile_image_url_https"] as? String
-        var userImage: URL!
-        if imageURL != nil {
-            print("url: \(imageURL)")
-            userImage = URL(string: imageURL!)!
-        } else {
-            userImage = nil
-        }
-        profileImage.setImageWith(userImage)
-        nameLabel.text = user["name"] as? String
+        profileImage.setImageWith(user.profileUrl!)
+        nameLabel.text = user.name
         
     }
 
@@ -39,6 +32,23 @@ class tweetingViewController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
+    
+    @IBAction func compose(_ sender: UIBarButtonItem) {
+        message = textLabel.text
+        let paramsDict: NSDictionary = NSDictionary(dictionary: ["status" : message!])
+        
+        TwitterClient.sharedInstance.compose(tweetText: message!, params: paramsDict, completion: { (error) -> () in
+            print("Successfully compose")
+            print(error?.localizedDescription)
+        })
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func onCancelButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation
